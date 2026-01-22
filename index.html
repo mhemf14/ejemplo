@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Fondo Solidario · Reprogramación de Deuda</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    :root{
+      --usach-primary:#00A499;
+      --usach-primary-dark:#008272;
+      --usach-gray:#f4f6f8;
+      --usach-text:#1f2933;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0;}
+
+    body{
+      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:#fafafa;
+      color:var(--usach-text);
+      line-height:1.5;
+    }
+
+    a{color:var(--usach-primary);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+
+    /* HEADER */
+    .usach-header{
+      background:var(--usach-primary);
+      color:#fff;
+      padding:1rem 1.5rem;
+    }
+    .usach-header-inner{
+      max-width:1100px;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      gap:1rem;
+      flex-wrap:wrap;
+    }
+    .usach-logo img{height:60px;}
+    .usach-header-title{
+      font-size:1.1rem;
+      font-weight:600;
+      margin-bottom:.25rem;
+    }
+    .usach-header-sub{
+      font-size:.85rem;
+      opacity:.9;
+    }
+
+    /* NAV */
+    .usach-nav{
+      background:#ffffff;
+      border-bottom:1px solid #e0e4ea;
+      position:sticky;
+      top:0;
+      z-index:20;
+    }
+    .usach-nav-inner{
+      max-width:1100px;
+      margin:0 auto;
+      padding:.4rem 1.5rem;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .usach-nav-toggle{
+      display:none;
+      background:none;
+      border:none;
+      font-size:1.5rem;
+      color:var(--usach-primary);
+      cursor:pointer;
+    }
+    .usach-nav-list{
+      list-style:none;
+      display:flex;
+      flex-wrap:wrap;
+      gap:.4rem;
+    }
+    .usach-nav-list a{
+      padding:.35rem .7rem;
+      border-radius:999px;
+      font-size:.9rem;
+      color:var(--usach-primary-dark);
+      background:transparent;
+      transition:.15s background,.15s color;
+    }
+    .usach-nav-list a:hover{
+      background:var(--usach-primary);
+      color:#fff;
+      text-decoration:none;
+    }
+
+    /* LAYOUT */
+    .usach-main{
+      max-width:1100px;
+      margin:1.5rem auto 2.5rem;
+      padding:0 1.5rem;
+    }
+
+    /* HERO */
+    .usach-hero{
+      background:linear-gradient(135deg,var(--usach-primary),var(--usach-primary-dark));
+      color:#fff;
+      border-radius:18px;
+      padding:1.8rem 1.6rem;
+      margin-bottom:1.7rem;
+      box-shadow:0 12px 30px rgba(0,0,0,.18);
+    }
+    .usach-hero h2{
+      font-size:1.5rem;
+      margin-bottom:.4rem;
+    }
+    .usach-hero p{
+      max-width:520px;
+      font-size:.95rem;
+      margin-bottom:1rem;
+    }
+    .usach-btn-primary{
+      border:none;
+      background:var(--usach-primary);
+      color:#ffffff;
+      padding:.6rem 1.4rem;
+      border-radius:999px;
+      font-weight:600;
+      font-size:.95rem;
+      cursor:pointer;
+      box-shadow:0 4px 10px rgba(0,0,0,.18);
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:.35rem;
+    }
+    .usach-btn-primary:hover{
+      background:var(--usach-primary-dark);
+    }
+
+    /* TARJETAS GENERALES */
+    .usach-section{
+      margin-bottom:1.7rem;
+    }
+
+    .usach-card{
+      background:#fff;
+      border-radius:14px;
+      padding:1.3rem 1.4rem 1.5rem;
+      box-shadow:0 6px 20px rgba(15,23,42,.07);
+      margin-bottom:1.4rem;
+    }
+    .usach-card h3{
+      font-size:1.15rem;
+      margin-bottom:.6rem;
+      color:var(--usach-primary-dark);
+    }
+    .usach-card p{
+      font-size:.92rem;
+      margin-bottom:.5rem;
+    }
+    .usach-card ul{
+      margin-left:1.1rem;
+      margin-bottom:.8rem;
+      font-size:.92rem;
+    }
+    .usach-card ul li{margin-bottom:.4rem;}
+    .usach-highlight{
+      font-size:.92rem;
+      font-weight:600;
+      color:var(--usach-primary-dark);
+    }
+    .usach-text-small{
+      font-size:.86rem;
+    }
+
+    /* DIAGRAMA CÓMO REPROGRAMAR (VERTICAL) */
+    .reprog-container h3{
+      margin-bottom:1rem;
+      color:var(--usach-primary-dark);
+    }
+    .reprog-steps{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:1rem;
+    }
+    .reprog-step{
+      background:var(--usach-gray);
+      border-radius:14px;
+      padding:1.1rem 1rem 1.3rem;
+      position:relative;
+      overflow:hidden;
+      border:1px solid rgba(0,0,0,.04);
+    }
+    .reprog-step::before{
+      content:attr(data-step);
+      position:absolute;
+      top:.8rem;
+      right:1rem;
+      font-size:2.4rem;
+      font-weight:700;
+      color:rgba(0,0,0,.04);
+    }
+    .reprog-header{
+      display:flex;
+      align-items:center;
+      gap:.7rem;
+      margin-bottom:.4rem;
+    }
+    .reprog-icon{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:0 2px 8px rgba(0,0,0,.12);
+    }
+    .reprog-icon svg{
+      width:22px;
+      height:22px;
+    }
+    .reprog-step h4{
+      font-size:1rem;
+      margin:0;
+      color:var(--usach-primary-dark);
+    }
+    .reprog-step p{
+      font-size:.88rem;
+      margin-top:.35rem;
+      color:#374151;
+    }
+
+    .usach-cta{
+      text-align:center;
+      margin-top:1rem;
+    }
+
+    /* BOTONES CENTRADOS (ARTÍCULO + HORARIOS) */
+    .usach-card-centered{
+      text-align:center;
+    }
+    .usach-dual-buttons{
+      margin-top:1rem;
+      display:flex;
+      justify-content:center;
+      gap:.75rem;
+      flex-wrap:wrap;
+    }
+
+    /* FOOTER */
+    .usach-footer{
+      background:#111827;
+      color:#e5e7eb;
+      padding:1.6rem 1rem;
+    }
+    .usach-footer-inner{
+      max-width:1100px;
+      margin:0 auto;
+      text-align:center;
+      font-size:.85rem;
+    }
+    .usach-footer-title{
+      font-weight:600;
+      margin-bottom:.3rem;
+    }
+    .usach-footer a{
+      color:#a5f3fc;
+    }
+
+    /* NAV MOBILE */
+    @media(max-width:768px){
+      .usach-nav-inner{
+        flex-wrap:wrap;
+        gap:.4rem 0;
+      }
+      .usach-nav-toggle{
+        display:block;
+      }
+      .usach-nav-list{
+        width:100%;
+        flex-direction:column;
+        display:none;
+        margin-top:.4rem;
+      }
+      .usach-nav-list a{
+        width:100%;
+      }
+      .usach-nav.open .usach-nav-list{
+        display:flex;
+      }
+      .usach-header-inner{
+        justify-content:center;
+        text-align:center;
+      }
+      .usach-header-title{font-size:1rem;}
+    }
+
+    /* ===== MODAL BASE (se reutiliza para ambos popups) ===== */
+    .modal-17bis{
+      position:fixed;
+      inset:0;
+      display:none;
+      z-index:200;
+    }
+    .modal-17bis.is-open{
+      display:block;
+    }
+    .modal-17bis-backdrop{
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,.45);
+    }
+    .modal-17bis-dialog{
+      position:relative;
+      max-width:720px;
+      max-height:80vh;
+      margin:5vh auto;
+      background:#ffffff;
+      border-radius:14px;
+      padding:1.4rem 1.5rem 1.2rem;
+      box-shadow:0 18px 45px rgba(15,23,42,.35);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+    }
+    .modal-17bis-dialog h3{
+      margin:0 2rem .8rem 0;
+      font-size:1.2rem;
+      color:var(--usach-primary-dark);
+    }
+    .modal-17bis-body{
+      font-size:.9rem;
+      line-height:1.5;
+      overflow:auto;
+      padding-right:.2rem;
+    }
+    .modal-17bis-body p{
+      margin-bottom:.7rem;
+    }
+    .modal-17bis-close{
+      position:absolute;
+      top:.5rem;
+      right:.7rem;
+      border:none;
+      background:transparent;
+      font-size:1.6rem;
+      line-height:1;
+      cursor:pointer;
+      color:#6b7280;
+    }
+    .modal-17bis-close:hover{
+      color:#111827;
+    }
+    @media(max-width:768px){
+      .modal-17bis-dialog{
+        width:92%;
+        margin:8vh auto;
+        padding:1.1rem 1.1rem .9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="usach-header">
+  <div class="usach-header-inner">
+    <a href="../index.html" class="usach-logo">
+      <img src="https://www.servicios.rrhh.usach.cl/intranet/img/logo_blanco.png"
+           alt="Universidad de Santiago de Chile">
+    </a>
+    <div>
+      <div class="usach-header-sub">Universidad de Santiago de Chile</div>
+      <div class="usach-header-title">
+        Administración General del Fondo Solidario de Crédito Universitario
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="usach-nav">
+  <div class="usach-nav-inner">
+    <button class="usach-nav-toggle" aria-label="Abrir menú">☰</button>
+    <ul class="usach-nav-list">
+      <li><a href="../index.html">Inicio</a></li>
+      <li><a href="../inicio_sesion.php">Inicio sesión</a></li>
+      <li><a href="../consulta_deuda.php">Consulta deuda</a></li>
+      <li><a href="../actualiza_informacion.php">Actualización de información</a></li>
+      <li><a href="../cupon_pago.php">Cupón de pago</a></li>
+      <li><a href="../ingresa_declaracion.php">Declaración jurada</a></li>
+      <li><a href="../web_pay.php">Pago Internet</a></li>
+      <li><a href="../cambio_clave.php">Cambio de clave</a></li>
+      <li><a href="../cerrar_sesion.php">Cerrar sesión</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="usach-main">
+
+  <!-- HERO -->
+  <section class="usach-section">
+    <section class="usach-hero">
+      <h2>Reprogramación de deuda Fondo Solidario</h2>
+      <p>
+        Accede a los beneficios de reprogramación de tu deuda morosa conforme al
+        Artículo 17 BIS. Revisa tus condiciones y simula tus nuevas cuotas.
+      </p>
+      <button type="submit" form="inicio_simulacion_RCS" class="usach-btn-primary">
+        Iniciar simulación
+      </button>
+    </section>
+  </section>
+
+  <!-- ¿Cuáles son los beneficios? -->
+  <section class="usach-section">
+    <article class="usach-card">
+      <h3>¿Cuáles son los beneficios?</h3>
+      <ul>
+        <li>Condonación de hasta el 80% de los intereses penales, según monto de abono inicial.</li>
+        <li>Elimina los registros de protestos, facilitando el acceso al sistema financiero.</li>
+        <li>Evita procedimientos judiciales por morosidad y cobros de intereses.</li>
+      </ul>
+      <p class="usach-highlight">
+        Pacta hasta 10 o 15 años tu deuda dependiendo del monto adeudado.
+      </p>
+    </article>
+  </section>
+
+  <!-- ¿Cómo reprogramar? -->
+  <section class="usach-section">
+    <article class="usach-card reprog-container">
+      <h3>¿Cómo reprogramar?</h3>
+
+      <div class="reprog-steps">
+
+        <div class="reprog-step" data-step="1">
+          <div class="reprog-header">
+            <div class="reprog-icon">
+              <svg viewBox="0 0 24 24">
+                <path fill="#00A499"
+                      d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2m1 15h-2v-2h2m0-4h-2V7h2"/>
+              </svg>
+            </div>
+            <h4>Ingresar Código</h4>
+          </div>
+          <p>
+            Ingresar el código que se enviará a tu correo electrónico.
+          </p>
+        </div>
+
+        <div class="reprog-step" data-step="2">
+          <div class="reprog-header">
+            <div class="reprog-icon">
+              <svg viewBox="0 0 24 24">
+                <path fill="#00A499"
+                      d="M9 21H7V19H9M13 21H11V19H13M17 21H15V19H17M20 8H4V5H20M20 3H4A2 2 0 0 0 2 5V19A2 2 0 0 0 4 21H20A2 2 0 0 0 22 19V5A2 2 0 0 0 20 3M20 17H4V10H20Z"/>
+              </svg>
+            </div>
+            <h4>Simula</h4>
+          </div>
+          <p>
+            Simula el abono inicial y los plazos según tu saldo de deuda.
+          </p>
+        </div>
+
+        <div class="reprog-step" data-step="3">
+          <div class="reprog-header">
+            <div class="reprog-icon">
+              <svg viewBox="0 0 24 24">
+                <path fill="#00A499"
+                      d="M9 17L3 11L4.41 9.59L9 14.17L19.59 3.58L21 5M19 14H17V19H5V7H10V5H5A2 2 0 0 0 3 7V19A2 2 0 0 0 5 21H17A2 2 0 0 0 19 19Z"/>
+              </svg>
+            </div>
+            <h4>Imprime</h4>
+          </div>
+          <p>
+            Imprime los documentos (Pagaré y Solicitud) y fírmarlos ante notario con firma y huella.
+          </p>
+        </div>
+
+        <div class="reprog-step" data-step="4">
+          <div class="reprog-header">
+            <div class="reprog-icon">
+              <svg viewBox="0 0 24 24">
+                <path fill="#00A499"
+                      d="M12 20L8 16H11V4H13V16H16M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2Z"/>
+              </svg>
+            </div>
+            <h4>Pago</h4>
+          </div>
+          <p>
+            Realiza el pago del pie inicial en la página del Fondo Solidario a través de Webpay.
+          </p>
+        </div>
+
+        <div class="reprog-step" data-step="5">
+          <div class="reprog-header">
+            <div class="reprog-icon">
+              <svg viewBox="0 0 24 24">
+                <path fill="#00A499"
+                      d="M9 17L3 11L4.41 9.59L9 14.17L19.59 3.58L21 5M19 14H17V19H5V7H10V5H5A2 2 0 0 0 3 7V19A2 2 0 0 0 5 21H17A2 2 0 0 0 19 19Z"/>
+              </svg>
+            </div>
+            <h4>Recepción de Documentos</h4>
+          </div>
+          <p>
+            Para formalizar la reprogramación debemos contar con el pago del abono y la recepción de pagarés
+            y Solicitud en nuestras oficinas durante el mes en que realizaste la simulación.
+          </p>
+        </div>
+      </div>
+
+      <div class="usach-cta">
+        <button type="submit" form="inicio_simulacion_RCS" class="usach-btn-primary">
+          Simular ahora
+        </button>
+      </div>
+    </article>
+  </section>
+
+  <!-- SECCIÓN POPUPS: ART. 17 BIS + HORARIOS -->
+  <section class="usach-section">
+    <article class="usach-card usach-card-centered">
+      <p class="usach-text-small">
+        Conoce las condiciones legales para la reprogramación y la información de atención del Fondo Solidario.
+      </p>
+
+      <div class="usach-dual-buttons">
+        <button type="button" id="btn-art-17bis" class="usach-btn-primary">
+          ¿Qué dice el artículo 17 BIS?
+        </button>
+
+        <button type="button" id="btn-info-general" class="usach-btn-primary">
+          Horarios de Atención
+        </button>
+      </div>
+    </article>
+  </section>
+
+  <!-- FORMULARIO ORIGINAL (OCULTO) -->
+  <form id="inicio_simulacion_RCS"
+        action="https://simulacion.prod.helen.cl/simulacion_rcs_seven/trunk/appl/10_inicio/inicio.php"
+        name="inicio_simulacion_RCS" method="post" target="blanck">
+
+    <div style="display:none">
+      <input type="text" name="COD_UNIVERSIDAD_DEUDOR_0" value="6">
+      <input type="text" name="RUT_0" value="XXXXXXXX">
+      <input type="text" name="DIG_VERIF_0" value="X">
+      <input type="text" name="NOMBRE_0" value="NOMBRE">
+      <input type="text" name="APELLIDO_PATERNO_0" value="PATERNO">
+      <input type="text" name="APELLIDO_MATERNO_0" value="MATERNO">
+      <input type="text" name="DIRECCION_0" value="DIRECCIÓN">
+      <input type="text" name="NOM_COMUNA_0" value="COMUNA">
+      <input type="text" name="NOM_CIUDAD_0" value="CIUDAD">
+      <input type="text" name="EMAIL_0" value="correo@ejemplo.cl">
+      <input type="text" name="TELEFONO_0" value="000000000">
+      <input type="text" name="CELULAR_0" value="000000000">
+
+      <input type="text" name="COD_DEUDA_0" value="CODIGO_DEUDA">
+      <input type="text" name="COD_TIPO_DEUDA_0" value="CS">
+      <input type="text" name="COD_UNIVERSIDAD_0" value="6">
+      <input type="text" name="SALDO_CAPITAL_0" value="0">
+      <input type="text" name="SALDO_MULTA_0" value="0">
+    </div>
+  </form>
+
+</main>
+
+<footer class="usach-footer">
+  <div class="usach-footer-inner">
+    <p class="usach-footer-title">Universidad de Santiago de Chile.</p>
+    <p>Avenida Libertador Bernardo O'Higgins nº 3363. Estación Central. Santiago, Chile.</p>
+    <p>
+      Mesa Central (+56) 2 718 00 00 ·
+      <a href="http://www.usach.cl/contacto">
+        Oficina de Informaciones, Reclamos y Sugerencias (OIRS)
+      </a>
+    </p>
+  </div>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Toggle menú móvil
+    var nav = document.querySelector('.usach-nav');
+    var btn = document.querySelector('.usach-nav-toggle');
+    if (nav && btn){
+      btn.addEventListener('click', function () {
+        nav.classList.toggle('open');
+      });
+    }
+
+    // ===== MODAL ART. 17 BIS =====
+    var btnArt = document.getElementById('btn-art-17bis');
+    var modalArt = document.getElementById('modal-17bis');
+    if (btnArt && modalArt){
+      var backdropArt = modalArt.querySelector('.modal-17bis-backdrop');
+      var closeArt = modalArt.querySelector('.modal-17bis-close');
+
+      function openArt(){
+        modalArt.classList.add('is-open');
+        modalArt.setAttribute('aria-hidden','false');
+      }
+      function closeArtModal(){
+        modalArt.classList.remove('is-open');
+        modalArt.setAttribute('aria-hidden','true');
+      }
+
+      btnArt.addEventListener('click', openArt);
+      closeArt.addEventListener('click', closeArtModal);
+      backdropArt.addEventListener('click', closeArtModal);
+
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape' && modalArt.classList.contains('is-open')){
+          closeArtModal();
+        }
+      });
+    }
+
+    // ===== MODAL HORARIOS DE ATENCIÓN =====
+    var btnInfo = document.getElementById('btn-info-general');
+    var modalInfo = document.getElementById('modal-info-general');
+    if (btnInfo && modalInfo){
+      var backdropInfo = modalInfo.querySelector('.modal-17bis-backdrop');
+      var closeInfo = modalInfo.querySelector('.modal-17bis-close');
+
+      function openInfo(){
+        modalInfo.classList.add('is-open');
+        modalInfo.setAttribute('aria-hidden','false');
+      }
+      function closeInfoModal(){
+        modalInfo.classList.remove('is-open');
+        modalInfo.setAttribute('aria-hidden','true');
+      }
+
+      btnInfo.addEventListener('click', openInfo);
+      closeInfo.addEventListener('click', closeInfoModal);
+      backdropInfo.addEventListener('click', closeInfoModal);
+
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape' && modalInfo.classList.contains('is-open')){
+          closeInfoModal();
+        }
+      });
+    }
+  });
+</script>
+
+<!-- Modal Artículo 17 BIS -->
+<div id="modal-17bis" class="modal-17bis" aria-hidden="true">
+  <div class="modal-17bis-backdrop"></div>
+  <div class="modal-17bis-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-17bis-title">
+    <button type="button" class="modal-17bis-close" aria-label="Cerrar">×</button>
+    <h3 id="modal-17bis-title">¿Qué dice el artículo 17 BIS?</h3>
+    <div class="modal-17bis-body">
+      <p>
+        “Artículo 17 bis.- En caso de mora, y sólo una vez agotadas todas las instancias de
+        recuperación prejudicial de la deuda, el administrador del fondo podrá reprogramar
+        la deuda morosa de los deudores que no hubieren reprogramado con anterioridad y
+        que se lo soliciten. Esta reprogramación deberá ser en cuotas fijas, anuales y
+        sucesivas. No obstante lo anterior, una reprogramación individual no podrá ocurrir
+        antes de que hayan transcurrido 18 meses desde que el deudor entró en mora.
+      </p>
+      <p>
+        Para acogerse a esta reprogramación los deudores deberán hacer un pago inicial del
+        todo o parte del saldo de capital más los intereses adeudados, sin contar los
+        intereses penales, y se les condonarán estos últimos en la misma proporción que el
+        porcentaje de la deuda que inicialmente paguen, menos un 10%. Con todo, esta
+        condonación en ningún caso podrá exceder del 80% de los intereses penales ni ser
+        inferior al 20%.
+      </p>
+      <p>
+        El pago inicial no podrá ser inferior al monto mayor entre el 10% de la deuda,
+        excluyendo los intereses penales, y el equivalente a 4 unidades tributarias
+        mensuales. Asimismo, en caso que el 10% de la deuda resulte superior a 20 unidades
+        tributarias mensuales, el deudor podrá optar por pagar inicialmente este último
+        monto.
+      </p>
+      <p>
+        El plazo de pago del remanente de la deuda no deberá exceder de 10 años, si el
+        monto de la deuda reprogramada es igual o inferior a 150 unidades tributarias
+        mensuales, o de 15 años, si el monto de la deuda reprogramada es superior a 150
+        unidades tributarias mensuales.”
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Horarios de Atención -->
+<div id="modal-info-general" class="modal-17bis" aria-hidden="true">
+  <div class="modal-17bis-backdrop"></div>
+  <div class="modal-17bis-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-info-title">
+    <button type="button" class="modal-17bis-close" aria-label="Cerrar">×</button>
+    <h3 id="modal-info-title">Horarios de Atención</h3>
+    <div class="modal-17bis-body">
+      <p><strong>Horario de Atención Presencial:</strong><br>
+        Lunes a viernes, de 09:00 a 13:45 horas, en nuestras oficinas.
+      </p>
+      <p><strong>Horario de Atención Telefónica:</strong><br>
+        Lunes a jueves: de 09:00 a 14:00 y de 15:00 a 17:45 horas.<br>
+        Viernes: de 09:00 a 14:00 y de 15:00 a 16:45 horas.
+      </p>
+      <p><strong>Correo electrónico institucional:</strong><br>
+        <a href="mailto:agfcu@usach.cl">agfcu@usach.cl</a>
+      </p>
+      <p><strong>Dirección Comercial:</strong><br>
+        Avda. El Belloto 3530 (Ex Avda. Sur), Estación Central.<br>
+        Fono directo: 22 718 1500 - 22 718 1501
+      </p>
+      <p><strong>Dirección Postal:</strong><br>
+        Adm. Gral. Fondo Solidario de Crédito Universitario<br>
+        Universidad de Santiago de Chile<br>
+        Casilla 442, Correo 2, Santiago
+      </p>
+      <p><strong>Empresa ORSAN (gestión de documentos):</strong><br>
+        Encomenderos 113, Las Condes<br>
+        Fono: 22 381 8350
+      </p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html
